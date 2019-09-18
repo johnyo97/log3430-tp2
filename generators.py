@@ -12,7 +12,7 @@ def simple(V, E):
     '''
     Returns a random simple graph containing V vertices and E edges.
     @param V the number of vertices
-    @param E the number of vertices
+    @param E the number of edges
     @return a random simple graph on V vertices, containing a total of E edges
     @raises ValueError if no such simple graph exists
     '''
