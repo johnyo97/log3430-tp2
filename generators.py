@@ -25,7 +25,7 @@ def simple(V, E):
     while G.E() < E:
         v = rand.randrange(V)
         w = rand.randrange(V)
-        e = (v , w)
+        e = (v, w)
         if v != w and e not in edges:
             edges.append(e)
             G.add_edge(e)

@@ -15,28 +15,34 @@ class MyTestCase(unittest.TestCase):
         edges = self.simpleGraph.edges()
 
         values = []
-        count = 0
+        # Counter for number of duplicates, if present
+        duplicatesCount = 0
         for edge in edges:
+            # Check if two edges are the same
             if edge not in values:
                 values.append(edge)
+            # If they are the same, increment 'count'
             else:
-                count = count + 1
-
-        self.assertTrue(count == 0)
+                duplicatesCount = duplicatesCount + 1
+        # Check if number of duplicates is equal to 0
+        self.assertTrue(duplicatesCount == 0)
 
     def test_simple_graph_has_no_loops(self):
         edges = self.simpleGraph.edges()
 
-        count = 0;
+        # Counter for the number of loops, if present
+        nbrOfLoops = 0
         for edge in edges:
             values = []
             for vertice in edge:
+                # Check if edge has the same vertice
                 if vertice not in values:
                     values.append(vertice)
                 else:
-                   count = count + 1
+                    # If edge has the same vertice, increment 'nbrOfLoops'
+                   nbrOfLoops = nbrOfLoops + 1
 
-        self.assertTrue(count == 0)
+        self.assertTrue(nbrOfLoops == 0)
 
 
 
