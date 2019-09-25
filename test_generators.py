@@ -3,12 +3,38 @@ import re
 
 from generators import simple
 from generators import simple_with_probability
+from generators import bipartite
 
 
 class MyTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.simpleGraph = simple(4, 4)
+        self.simpleGraph = None
+        self.bipartiteGraph = None
+
+    # WORK IN PROGRESS FOR BIPARTITE
+    #def test_each_vertice_visited_once_in_bipartite_graph(self):
+        #self.bipartiteGraph = bipartite(4, 4, 4)
+        #couples = self.get_graph_couples(self.bipartiteGraph)
+
+        #neighbors = []
+        #visited = [False] * len(couples)
+
+        #count = 0
+        #for couple in couples:
+            #print(str(couple))
+            #if couple[1] in neighbors:
+                #if visited[count] is True:
+                    #visited[count] = False
+                #else:
+                    #visited[count] = True
+            #else:
+                #neighbors.append(couple[1])
+            #count = count + 1
+
+        #for i in range(len(visited)):
+            #self.assertTrue(visited[i], str(couples[i][1]) + ' was visited twice')
+
 
     def test_simple_graph_with_probility(self):
         exceptionWasRaised = False
@@ -47,6 +73,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(falseProbility))
 
     def test_simple_graph_has_no_multiple_edges(self):
+        self.simpleGraph = simple(4,4)
         edges = self.simpleGraph.edges()
 
         values = []
@@ -60,9 +87,11 @@ class MyTestCase(unittest.TestCase):
             else:
                 duplicatesCount = duplicatesCount + 1
         # Check if number of duplicates is equal to 0
+
         self.assertTrue(duplicatesCount == 0)
 
-    def test_simple_graph_has_no_loopsM(self):
+    def test_simple_graph_has_no_loops(self):
+        self.simpleGraph = simple(4,4)
         edges = self.simpleGraph.edges()
 
         # Counter for the number of loops, if present
@@ -79,6 +108,22 @@ class MyTestCase(unittest.TestCase):
 
         self.assertTrue(nbrOfLoops == 0)
 
+
+    def get_graph_couples(self, graph):
+        edges = graph.edges()
+
+        couple = []
+        for edge in edges:
+            values = []
+            for vertice in edge:
+                # Check if edge has the same vertice
+                if vertice not in values:
+                    values.append(vertice)
+                else:
+                    # If edge has the same vertice, increment 'nbrOfLoops'
+                    nbrOfLoops = nbrOfLoops + 1
+            couple.append(values)
+        return couple
 
 if __name__ == '__main__':
     unittest.main()
