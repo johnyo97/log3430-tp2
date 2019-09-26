@@ -6,7 +6,7 @@ from generators import simple_with_probability
 from generators import bipartite
 
 
-class MyTestCase(unittest.TestCase):
+class TestSimpleGraphGenerators(unittest.TestCase):
 
     def setUp(self):
         self.simpleGraph = None
