@@ -72,8 +72,52 @@ class MyTestCase(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(falseProbility))
 
+    def test_simple_graph_v_greater_than_e(self):
+        exceptionWasRaised = False
+
+        try:
+            self.simpleGraph = simple(4, 2)
+        except Exception:
+            exceptionWasRaised = True
+
+        self.assertTrue(self.simpleGraph is not None and exceptionWasRaised is False)
+
+    def test_simple_graph_number_of_edges_is_less_than_zero(self):
+        exceptionWasRaised = False
+
+        try:
+            # <{e = -1}, {error}>
+            self.simpleGraph = simple(4, -1)
+        except Exception:
+            exceptionWasRaised = True
+
+        self.assertTrue(exceptionWasRaised)
+
+    def test_simple_graph_number_of_vertices_is_less_than_zero(self):
+        exceptionWasRaised = False
+
+        try:
+            # <{v = -1}, {error}>
+            self.simpleGraph = simple(-1, 4)
+        except Exception:
+            exceptionWasRaised = True
+
+        self.assertTrue(exceptionWasRaised)
+
+    def test_simple_graph_number_of_vertices_equals_zero(self):
+        exceptionWasRaised = False
+
+        try:
+            # <{v = 4, e = 2}, {generatedGraph} >
+            self.simpleGraph = simple(0, 4)
+        except Exception as ex:
+            exceptionWasRaised = True
+
+        self.assertTrue(exceptionWasRaised)
+
     def test_simple_graph_has_no_multiple_edges(self):
-        self.simpleGraph = simple(4,4)
+        # <{v = 6, e = 3}, {generatedGraph}>
+        self.simpleGraph = simple(6, 3)
         edges = self.simpleGraph.edges()
 
         values = []
