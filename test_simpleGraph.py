@@ -10,47 +10,46 @@ class TestSimpleGraphGenerators(unittest.TestCase):
 
     def setUp(self):
         self.simpleGraph = None
+        self.simpleGraphWithProbility = None
 
     def test_simple_graph_with_probility(self):
         exceptionWasRaised = False
-        simpleGraphWithProbility = None
 
         try:
-            # Try to create a simple graph with probility '0.8'
-            simpleGraphWithProbility = simple_with_probability(4, 0.8)
+            # <{p = 0.8}, {generatedGraph}>
+            self.simpleGraphWithProbility = simple_with_probability(4, 0.8)
         except Exception:
             exceptionWasRaised = True
 
-        self.assertTrue(simpleGraphWithProbility is not None and exceptionWasRaised is False)
+        self.assertTrue(self.simpleGraphWithProbility is not None and exceptionWasRaised is False)
 
     def test_simple_graph_with_probility_less_than_zero(self):
         exceptionWasRaised = False
-        falseProbility = -1.0
 
         try:
-            # Try to create a simple graph with probility '-1'
-            simpleGraphWithProbility = simple_with_probability(4, falseProbility)
+            # <{p = -1.0}, {error}>
+            self.simpleGraphWithProbility = simple_with_probability(4, -1.0)
         except Exception:
             exceptionWasRaised = True
 
-        self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(falseProbility))
+        self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(-1.0))
 
     def test_simple_graph_with_probability_greater_than_one(self):
         exceptionWasRaised = False
-        falseProbility = 1.5
 
         try:
-            # Try to create a simple graph with probility '1.5'
-            simpleGraphWithProbility = simple_with_probability(4, falseProbility)
+            # <{p = 1.5}, {error}>
+            self.simpleGraphWithProbility = simple_with_probability(4, 1.5)
         except Exception:
             exceptionWasRaised = True
 
-        self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(falseProbility))
+        self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(1.5))
 
     def test_simple_graph_v_greater_than_e(self):
         exceptionWasRaised = False
 
         try:
+            # <{v = 4}, {e = 2}>
             self.simpleGraph = simple(4, 2)
         except Exception:
             exceptionWasRaised = True
@@ -110,7 +109,8 @@ class TestSimpleGraphGenerators(unittest.TestCase):
         self.assertTrue(duplicatesCount == 0)
 
     def test_simple_graph_has_no_loops(self):
-        self.simpleGraph = simple(4,4)
+        # <{v = 4}, {e = 4}>
+        self.simpleGraph = simple(4, 4)
         edges = self.simpleGraph.edges()
 
         # Counter for the number of loops, if present
