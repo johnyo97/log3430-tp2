@@ -3,7 +3,6 @@ import re
 
 from generators import simple
 from generators import simple_with_probability
-from generators import bipartite
 
 
 class TestSimpleGraphGenerators(unittest.TestCase):
