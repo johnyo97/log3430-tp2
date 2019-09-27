@@ -88,7 +88,8 @@ def bipartite_with_probability(V1, V2, p):
     @param p the probability that the graph contains an edge with one endpoint in either side
     @return a random simple bipartite graph on V1 and V2 vertices,
      containing each possible edge with probability p
-    @raises ValueError if probability is not between 0 and 1
+    @raises ValueError if proba
+    bility is not between 0 and 1
     '''
     if p < 0.0 or p > 1.0:
         raise ValueError('Probability must be between 0 and 1')

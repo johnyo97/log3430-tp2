@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="901b12f3-ecd5-4476-8c5c-0ce4dc15f21b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/test_generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_generators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/generators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_bipartiteGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_bipartiteGraph.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
