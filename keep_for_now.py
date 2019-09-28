@@ -9,6 +9,23 @@ class TestBipartiteGraph(unittest.TestCase):
         self.bipartiteGraph = None
         self.bipartiteGraphWithProbility = None
 
+    def get_graph_couples(self, graph):
+        edges = graph.edges()
+
+        couple = []
+        for edge in edges:
+            values = []
+            for vertice in edge:
+                # Check if edge has the same vertice
+                if vertice not in values:
+                    values.append(vertice)
+                else:
+                    # If edge has the same vertice, increment 'nbrOfLoops'
+                    nbrOfLoops = nbrOfLoops + 1
+            couple.append(values)
+        return couple
+
+
     # Tests de la méthode bipartite
     # Nomenclature :
 
@@ -25,8 +42,8 @@ class TestBipartiteGraph(unittest.TestCase):
     # E1 {E=0}
     # E2 {E<0}
     # E3 {E>0}
-    # E4 {E>V1+V2}
-    # E5 {E<V1+V2}
+    # E4 {E>V1*V2}
+    # E5 {E<V1*V2}
 
     # Cas d'erreurs = V1(1), V1(3), V2(3), E1, E2, E5
 
