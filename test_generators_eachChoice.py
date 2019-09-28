@@ -133,6 +133,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
     # cas d'erreur: P2, P3, V1(3), V2(3)
 
+    # V1(3) -> d1 = <{v1=-1.0, v2=4, p=0.8}, {ERROR}>
     def test_bipartite_with_probility_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -143,6 +144,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraphWithProbility is None)
 
+    # V2(3) -> d2 = <{v1=4, v2=-1.0, p=0.8}, {ERROR}>
     def test_bipartite_with_probility_V2_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -153,6 +155,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraphWithProbility is None)
 
+    # V1(2)V2(2)P3 -> d3 = <{v1=4, v2=4, p=0.8}, {graph}>
     def test_bipartite_with_probility_P_between_one_and_zero(self):
         exceptionWasRaised = False
 
@@ -183,6 +186,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
     # Cas d'erreurs = V1(1), V1(3), V2(3), E1, E2, E5
 
+    # V1(3) -> d1 = <{v1=-1.0, v2=2, e=6}, {ERROR}>
     def test_bipartite_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -193,6 +197,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
+    # V2(3) -> d2 = <{v1=4, v2=-1.0, e=6}, {ERROR}>
     def test_bipartite_V2_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -203,6 +208,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
+    # E3 -> d3 = <{v1=4, v2=4, e=-1.0}, {ERROR}>
     def test_bipartite_E_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -213,6 +219,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
+    # V1(2)V2(2)E3G1 -> d4 = <{v1=2, v2=2, e=6}, {graph}>
     def test_bipartite_E_between_G1(self):
         exceptionWasRaised = False
 
@@ -242,7 +249,6 @@ class TestEulerianCycleEC(unittest.TestCase):
     # cas d'erreur: V1, V2, E1, E2
 
     # V1 -> d1 = <{v=-1.0, e=4}, {ERROR}>
-
     def test_eulerianCycle_V_smaller_than_zero(self):
         exceptionWasRaised = True
 
@@ -253,6 +259,7 @@ class TestEulerianCycleEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.eulerianCycle is None)
 
+    # V2 -> d2 = <{v=4, e=-1.0}, {ERROR}>
     def test_eulerianCycle_E_smaller_than_zero(self):
         exceptionWasRaised = True
 
@@ -284,6 +291,7 @@ class TestRegularGeneratorsEC(unittest.TestCase):
     # Cas d'erreurs = V1, V2, K1, VK2
     # Cas ok : V3K2VK1
 
+    # V1
     def test_eulerianCycle_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -294,6 +302,7 @@ class TestRegularGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.regularGraph is None)
 
+    # K11
     def test_eulerianCycle_K_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -304,6 +313,7 @@ class TestRegularGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.regularGraph is None)
 
+    # VK1
     def test_eulerianCycle_multiplication_V_K_is_pair(self):
         exceptionWasRaised = False
 
