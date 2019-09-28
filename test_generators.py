@@ -14,39 +14,71 @@ class TestSimpleGraphGenerators(unittest.TestCase):
         self.simpleGraph = None
         self.simpleGraphWithProbility = None
 
-    def test_simple_graph_with_probility(self):
+    # Tests de la méthode bipartite
+    # Nomenclature :
+
+    # V1 = {V=0}
+    # V2 = {V<0}
+    # V3 = {V>0}
+
+    # P1 = {P=0}
+    # P2 = {P=1}
+    # P3 = {P>1}
+    # P4 = {P<0}
+    # P5 = {0 <= P <= 1}
+
+    # cas d'erreurs: V1, V2, P2, P3
+
+    # V3P5 -> d1 = <{v=4, p=0.8}, {graph}>
+    def test_simple_graph_probility_greater_than_zero_smaller_than_one(self):
         exceptionWasRaised = False
 
         try:
-            # <{p = 0.8}, {generatedGraph}>
             self.simpleGraphWithProbility = simple_with_probability(4, 0.8)
         except Exception:
             exceptionWasRaised = True
 
         self.assertTrue(self.simpleGraphWithProbility is not None and exceptionWasRaised is False)
 
+    # V3P3 -> d2 = <{v=4, p=-1.0}, {ERROR}>
     def test_simple_graph_with_probility_less_than_zero(self):
         exceptionWasRaised = False
 
         try:
-            # <{p = -1.0}, {error}>
             self.simpleGraphWithProbility = simple_with_probability(4, -1.0)
         except Exception:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(-1.0))
 
+    # V3P2 -> d3 = <{v=4, p=1.5}, {ERROR}>
     def test_simple_graph_with_probability_greater_than_one(self):
         exceptionWasRaised = False
 
         try:
-            # <{p = 1.5}, {error}>
             self.simpleGraphWithProbility = simple_with_probability(4, 1.5)
         except Exception:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised, 'Exception was not raised, method has passed with p=' + str(1.5))
 
+    # Tests de la méthode bipartite
+    # Nomenclature :
+
+    # V1 = {V=0}
+    # V2 = {V<0}
+    # V3 = {V>0}
+
+    # E1 = {V=0}
+    # E2 = {V<0}
+    # E3 = {V>0}
+
+    # G1 = {V>E}
+    # G2 = {V<E}
+
+    # cas d'erreurs: V1, V2, E1, E2, G2
+
+    # V2E2G1 -> d1 = <{v=4, E=2}, {graph}>
     def test_simple_graph_v_greater_than_e(self):
         exceptionWasRaised = False
 
@@ -58,76 +90,82 @@ class TestSimpleGraphGenerators(unittest.TestCase):
 
         self.assertTrue(self.simpleGraph is not None and exceptionWasRaised is False)
 
+    # E2 -> d2 = <{v=4, E=-1}, {ERROR}>
     def test_simple_graph_number_of_edges_is_less_than_zero(self):
         exceptionWasRaised = False
 
         try:
-            # <{e = -1}, {error}>
             self.simpleGraph = simple(4, -1)
         except Exception:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised)
 
+    # V2 -> d3 = <{v=-1, E=4}, {ERROR}>
     def test_simple_graph_number_of_vertices_is_less_than_zero(self):
         exceptionWasRaised = False
 
         try:
-            # <{v = -1}, {error}>
             self.simpleGraph = simple(-1, 4)
         except Exception:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised)
 
+    # V1E3 -> d4 = <{v=0, E=4}, {graph}>
     def test_simple_graph_number_of_vertices_equals_zero(self):
         exceptionWasRaised = False
 
         try:
-            # <{v = 4, e = 2}, {generatedGraph} >
             self.simpleGraph = simple(0, 4)
         except Exception as ex:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised)
 
-    def test_simple_graph_has_no_multiple_edges(self):
-        # <{v = 6, e = 3}, {generatedGraph}>
-        self.simpleGraph = simple(6, 3)
-        edges = self.simpleGraph.edges()
+    # V3E1 -> d5 = <{v=4, E=0}, {graph}>
+    def test_simple_graph_number_of_edges_equals_zero(self):
+        exceptionWasRaised = False
 
-        values = []
-        # Counter for number of duplicates, if present
-        duplicatesCount = 0
-        for edge in edges:
-            # Check if two edges are the same
-            if edge not in values:
-                values.append(edge)
-            # If they are the same, increment 'count'
-            else:
-                duplicatesCount = duplicatesCount + 1
-        # Check if number of duplicates is equal to 0
+        try:
+            self.simpleGraph = simple(4, 0)
+        except:
+            exceptionWasRaised = True
 
-        self.assertTrue(duplicatesCount == 0)
+        self.assertFalse(exceptionWasRaised)
 
-    def test_simple_graph_has_no_loops(self):
-        # <{v = 4}, {e = 4}>
-        self.simpleGraph = simple(4, 4)
-        edges = self.simpleGraph.edges()
+    # V3E3G1 -> d6 = <{v=4, e=2}, {graph}>
+    def test_simple_graph_vertices_greater_than_edges(self):
+        exceptionWasRaised = False
 
-        # Counter for the number of loops, if present
-        nbrOfLoops = 0
-        for edge in edges:
-            values = []
-            for vertice in edge:
-                # Check if edge has the same vertice
-                if vertice not in values:
-                    values.append(vertice)
-                else:
-                    # If edge has the same vertice, increment 'nbrOfLoops'
-                    nbrOfLoops = nbrOfLoops + 1
+        try:
+            self.simpleGraph = simple(4, 2)
+        except:
+            exceptionWasRaised = True
 
-        self.assertTrue(nbrOfLoops == 0)
+        self.assertFalse(exceptionWasRaised and self.simpleGraph is not None)
+
+    # V3E3G2 -> d7 = <{v=2, e=4}, {ERROR}>
+    def test_simple_graph_vertices_smaller_than_edges(self):
+        exceptionWasRaised = False
+
+        try:
+            self.simpleGraph = simple(2, 4)
+        except:
+            exceptionWasRaised = True
+
+        self.assertTrue(exceptionWasRaised)
+
+    # V3E3G3 -> d8 = <{v=2, e=2}, {ERROR}>
+    def test_simple_graph_vertices_equals_edges(self):
+        exceptionWasRaised = False
+
+        try:
+            self.simpleGraph = simple(2, 2)
+        except:
+            exceptionWasRaised = True
+
+        self.assertFalse(exceptionWasRaised and self.simpleGraph is not None)
 
     # Tests de la méthode bipartite
     # Nomenclature :

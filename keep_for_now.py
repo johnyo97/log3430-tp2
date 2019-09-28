@@ -1,6 +1,7 @@
 import unittest
 
 from generators import bipartite
+from generators import simple
 from generators import bipartite_with_probability
 
 class TestBipartiteGraph(unittest.TestCase):
@@ -160,6 +161,44 @@ class TestBipartiteGraph(unittest.TestCase):
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
+
+    def test_simple_graph_has_no_multiple_edges(self):
+        # <{v = 6, e = 3}, {generatedGraph}>
+        self.simpleGraph = simple(6, 3)
+        edges = self.simpleGraph.edges()
+
+        values = []
+        # Counter for number of duplicates, if present
+        duplicatesCount = 0
+        for edge in edges:
+            # Check if two edges are the same
+            if edge not in values:
+                values.append(edge)
+            # If they are the same, increment 'count'
+            else:
+                duplicatesCount = duplicatesCount + 1
+        # Check if number of duplicates is equal to 0
+
+        self.assertTrue(duplicatesCount == 0)
+
+    def test_simple_graph_has_no_loops(self):
+        # <{v = 4}, {e = 4}>
+        self.simpleGraph = simple(4, 4)
+        edges = self.simpleGraph.edges()
+
+        # Counter for the number of loops, if present
+        nbrOfLoops = 0
+        for edge in edges:
+            values = []
+            for vertice in edge:
+                # Check if edge has the same vertice
+                if vertice not in values:
+                    values.append(vertice)
+                else:
+                    # If edge has the same vertice, increment 'nbrOfLoops'
+                    nbrOfLoops = nbrOfLoops + 1
+
+        self.assertTrue(nbrOfLoops == 0)
 
     #def test(self):
      #   self.bipartiteGraph = bipartite(4, 4, 4)
