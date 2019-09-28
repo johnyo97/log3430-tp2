@@ -93,7 +93,7 @@ class TestSimpleGraphGeneratorsAC(unittest.TestCase):
         except Exception:
             exceptionWasRaised = True
 
-        self.assertFalse(exceptionWasRaised, 'Exception was raised, method has passed with v=' + str(0))
+        self.assertTrue(exceptionWasRaised, 'Exception wasnt raised, method has passed with v=' + str(0))
 
     # V2 -> d6 = <{v=-1.0, p=0.8}, {ERROR}>
     def test_simple_graph_with_probability_V_smaller_than_zero(self):

@@ -33,7 +33,7 @@ def simple(V, E):
 
 def simple_with_probability(V, p):
     '''
-    Returns a random simple graph on V vertices, with an 
+    Returns a random simple graph on V vertices, with an
     edge between any two vertices with probability p. This is sometimes
     referred to as the Erdos-Renyi random graph model.
     @param V the number of vertices
@@ -44,6 +44,9 @@ def simple_with_probability(V, p):
     '''
     if p < 0.0 or p > 1.0:
         raise ValueError('Probability must be between 0 and 1')
+    # Modification question #5
+    if V <= 0:
+        raise ValueError("A simple graph must have at least one vertex")
     G = Graph(V)
     for v in range(V):
         for w in range(v+1,V,1):
@@ -66,6 +69,9 @@ def bipartite(V1, V2, E):
         raise ValueError('Too many edges')
     if E < 0:
         raise ValueError('Too few edges')
+    # Modification question #5
+    if V1 < 0 or V2 < 0:
+        raise ValueError("Vertex value cannot be less then 0")
     G = Graph(V1+V2)
     vertices = [i for i in range(V1+V2)]
     rand.shuffle(vertices)
@@ -93,6 +99,9 @@ def bipartite_with_probability(V1, V2, p):
     '''
     if p < 0.0 or p > 1.0:
         raise ValueError('Probability must be between 0 and 1')
+    # Modification question #5
+    if V1 < 0 or V2 < 0:
+        raise ValueError("Vertex value cannot be less then 0")
     vertices = [i for i in range(V1 + V2)]
     rand.shuffle(vertices)
     G = Graph(V1 + V2)
@@ -220,6 +229,9 @@ def regular(V, k):
     '''
     if V*k % 2 != 0:
         raise ValueError("Number of vertices * k must be even")
+    # Modification question #5
+    if V <= 0:
+        raise ValueError("A regular graph must have at least one vertex")
     G = Graph(V)
     # create k copies of each vertex
     vertices = [0 for _ in range(V*k)]

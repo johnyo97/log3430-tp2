@@ -14,22 +14,6 @@ class TestSimpleGraphGeneratorsEC(unittest.TestCase):
         self.simpleGraph = None
         self.simpleGraphWithProbility = None
 
-    # Tests de la méthode simple_with_probility
-    # Nomenclature :
-
-    # V1 = {V=0}
-    # V2 = {V<0}
-    # V3 = {V>0}
-
-    # P1 = {P=0}
-    # P2 = {P=1}
-    # P3 = {P>1}
-    # P4 = {P<0}
-    # P5 = {0 <= P <= 1}
-
-    # cas d'erreurs: V1, V2, P2, P3
-
-    # V1 -> d1 = <{v=0, p=0.8}, {ERROR}>
     def test_simple_graph_with_probility_V_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -40,7 +24,6 @@ class TestSimpleGraphGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.simpleGraphWithProbility is None)
 
-    # V3P5 -> d2 = <{v=4, p=0.8}, {graph}>
     def test_simple_graph_with_probility_V_greater_than_zero_p_between_one_and_zero(self):
         exceptionWasRaised = False
 
@@ -61,23 +44,8 @@ class TestSimpleGraphGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.simpleGraphWithProbility is None)
 
-    # Tests de la méthode simple
-    # Nomenclature :
-
-    # V1 = {V=0}                    [erreur]
-    # V2 = {V<0}                    [erreur]
-    # V3 = {V>0}                    [proprietes: validNbrVertices]
-
-    # E1 = {V=0}                    [erreur]
-    # E2 = {V<0}                    [erreur]
-    # E3 = {V>0}                    [proprietes: validNbrEdges]
-
     # G1 = {0 > E > V*(V-1)/2}      [if validNbrVertices && validNbrEdges]
-    # G2 = {E < V*(V-1) /2 }        [if validNbrVertices && validNbrEdges]
 
-    # cas d'erreurs: V1, V2, E1, E2, G2
-
-    # V2 -> d1 = <{v=-1.0, e=4}, {ERROR}>
     def test_simple_graph_V_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -88,7 +56,6 @@ class TestSimpleGraphGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.simpleGraphWithProbility is None)
 
-    # E2 -> d1 = <{v=4, e=-1.0}, {ERROR}>
     def test_simple_graph_E_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -99,7 +66,6 @@ class TestSimpleGraphGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.simpleGraphWithProbility is None)
 
-    # G1 -> d1 = <{v=4, e=4}, {graph}>
     def test_simple_graph_E_greater_than_G1(self):
         exceptionWasRaised = False
 
@@ -116,24 +82,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
         self.bipartiteGraph = None
         self.bipartiteGraphWithProbility = None
 
-    # Tests de la méthode bipartite_with_probility
-    # Nomenclature :
-
-    # V1(1) = {V1=0}    [proprietes: validNbrOfVertices]
-    # V1(2) = {V1>0}    [proprietes: validNbrofVertices]
-    # V1(3) = {V1<0}    [erreur]
-
-    # V2(1) = {V2=0}    [proprietes: validNbrOfEdges]
-    # V2(2) = {V2>0}    [proprietes: validNbrOfEdges]
-    # V2(3) = {V2<0}    [erreur]
-
-    # P1 = {P<0}        [erreur]
-    # P2 = {P>1}        [erreur]
-    # P3 = {0<P<1}      [if validNbrOfEdges && validNbrOfVertices]
-
-    # cas d'erreur: P2, P3, V1(3), V2(3)
-
-    # V1(3) -> d1 = <{v1=-1.0, v2=4, p=0.8}, {ERROR}>
     def test_bipartite_with_probility_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -144,7 +92,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraphWithProbility is None)
 
-    # V2(3) -> d2 = <{v1=4, v2=-1.0, p=0.8}, {ERROR}>
     def test_bipartite_with_probility_V2_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -155,7 +102,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraphWithProbility is None)
 
-    # V1(2)V2(2)P3 -> d3 = <{v1=4, v2=4, p=0.8}, {graph}>
     def test_bipartite_with_probility_P_between_one_and_zero(self):
         exceptionWasRaised = False
 
@@ -165,28 +111,7 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
             exceptionWasRaised = True
 
         self.assertFalse(exceptionWasRaised and self.bipartiteGraphWithProbility is not None)
-
-    # Tests de la méthode bipartite
-    # Nomenclature :
-
-    # V1(1) = {V1=0}            [erreur]
-    # V1(2) = {V1>0}            [proprietes: validNbrVertices1]
-    # V1(3) = {V1<0}            [erreur]
-
-    # V2(1) {V2=0}              [erreur]
-    # V2(2) {V2>0}              [proprietes: validNbrVertices2]
-    # V2(3) {V2<0}              [erreur]
-
-    # E1 {E=0}                  [erreur]
-    # E2 {E<0}                  [erreur]
-    # E3 {E>0}                  [proprietes: validNbrEdges]
-
     # G1 {0 <= E <= E>V1*V2}    [if validNbrVertices1 && validNbrVertices2 validNbrEdges]
-    # G2 {E <V1*V2}             [if validNbrVertices1 && validNbrVertices2 validNbrEdges]
-
-    # Cas d'erreurs = V1(1), V1(3), V2(3), E1, E2, E5
-
-    # V1(3) -> d1 = <{v1=-1.0, v2=2, e=6}, {ERROR}>
     def test_bipartite_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -197,7 +122,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
-    # V2(3) -> d2 = <{v1=4, v2=-1.0, e=6}, {ERROR}>
     def test_bipartite_V2_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -208,7 +132,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
-    # E3 -> d3 = <{v1=4, v2=4, e=-1.0}, {ERROR}>
     def test_bipartite_E_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -219,7 +142,6 @@ class TestBipartiteGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.bipartiteGraph is None)
 
-    # V1(2)V2(2)E3G1 -> d4 = <{v1=2, v2=2, e=6}, {graph}>
     def test_bipartite_E_between_G1(self):
         exceptionWasRaised = False
 
@@ -235,20 +157,6 @@ class TestEulerianCycleEC(unittest.TestCase):
     def setUp(self):
         self.eulerianCycle = None
 
-    # Tests de la méthode eulerianCycle
-    # Nomenclature :
-
-    # V1 = {V<0}    [erreur]
-    # V2 = {V=0}    [erreur]
-    # V3 = {V>0}    [proprietes: validNbrVertices]
-
-    # E1 = {E<0}    [erreur]
-    # E2 = {E=0}    [erreur]
-    # E3 = {E>0}    [proprietes: validNbrEdges]
-
-    # cas d'erreur: V1, V2, E1, E2
-
-    # V1 -> d1 = <{v=-1.0, e=4}, {ERROR}>
     def test_eulerianCycle_V_smaller_than_zero(self):
         exceptionWasRaised = True
 
@@ -259,7 +167,6 @@ class TestEulerianCycleEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.eulerianCycle is None)
 
-    # V2 -> d2 = <{v=4, e=-1.0}, {ERROR}>
     def test_eulerianCycle_E_smaller_than_zero(self):
         exceptionWasRaised = True
 
@@ -276,22 +183,6 @@ class TestRegularGeneratorsEC(unittest.TestCase):
     def setUp(self):
         self.regularGraph = None
 
-    # Tests de la méthode regular
-    # Nomenclature :
-
-    # V1 = {V=-1}
-    # V2 = {V<K+1}
-    # V3 = {V>=K+1}
-    # K1 = {K=-1}
-    # K2 = {K>=0}
-    # VK1 = {V*K pair}
-    # VK2 = {V*K impair}
-
-    # Combinaisons retenues :
-    # Cas d'erreurs = V1, V2, K1, VK2
-    # Cas ok : V3K2VK1
-
-    # V1
     def test_eulerianCycle_V1_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -302,7 +193,6 @@ class TestRegularGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.regularGraph is None)
 
-    # K11
     def test_eulerianCycle_K_smaller_than_zero(self):
         exceptionWasRaised = False
 
@@ -313,7 +203,6 @@ class TestRegularGeneratorsEC(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and self.regularGraph is None)
 
-    # VK1
     def test_eulerianCycle_multiplication_V_K_is_pair(self):
         exceptionWasRaised = False
 
