@@ -8,6 +8,28 @@ class TestBipartiteGraph(unittest.TestCase):
         self.bipartiteGraph = None
         self.bipartiteGraphWithProbility = None
 
+    # Tests de la méthode bipartite
+    # Nomenclature :
+
+    # V1(1) = {V1=0}
+    # V1(2) = {V1>0}
+    # V1(3) = {V1<0}
+    # V1(4) = {V1>V2}
+    # V1(5) = {V1<V2}
+
+    # V2(1) {V2=0}
+    # V2(2) {V2>0}
+    # V2(3) {V2<0}
+
+    # E1 {E=0}
+    # E2 {E<0}
+    # E3 {E>0}
+    # E4 {E>V1+V2}
+    # E5 {E<V1+V2}
+
+    # Cas d'erreurs = V1(1), V1(3), V2(3), E1, E2, E5
+
+    # V1(1) -> d1 = <{V1=0, V2=4, E=8}, {ERROR}>
     def test_V1_equals_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -19,17 +41,19 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
 
+    # V2(1) -> d2 = <{V1=4, V2=0, E=8}, {ERROR}>
     def test_V2_equals_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
 
         try:
-            bipartiteGraph = bipartite(4, 0 , 8)
+            bipartiteGraph = bipartite(4, 0, 8)
         except:
             exceptionWasRaised = True
 
         self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
 
+    # E1 -> d3 = <{V1=4, V2=4, E=0}, {ERROR}>
     def test_E_equals_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -41,6 +65,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertFalse(exceptionWasRaised and bipartiteGraph is not None)
 
+    # V1(1) -> d1 = <{V1=0, V2=4, E=8}, {ERROR}>
     def test_V1_V2_and_E_greater_than_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -52,6 +77,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertFalse(exceptionWasRaised and bipartiteGraph is not None)
 
+    # V1(1) -> d1 = <{V1=0, V2=4, E=8}, {ERROR}>
     def test_V1_greater_than_V2_E_greater_than_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -63,7 +89,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertFalse(exceptionWasRaised and bipartiteGraph is not None)
 
-
+    # V1(2)V2(2)E3 -> d4 = <{V1=2, V2=2, E=6}, {graph}>
     def test_V2_greater_than_V1_E_greater_than_zero(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -75,6 +101,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertFalse(exceptionWasRaised and bipartiteGraph is not None)
 
+    # V1(2)V2(2)E5 -> d5 = <{V1=4, V2=4, E=6}, {graph}>
     def test_E_smaller_than_the_sum_of_V1_V2(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -82,11 +109,23 @@ class TestBipartiteGraph(unittest.TestCase):
         try:
             bipartiteGraph = bipartite(4, 4, 6)
         except Exception as ex:
-            print(ex)
             exceptionWasRaised = True
 
         self.assertFalse(exceptionWasRaised and bipartiteGraph is not None)
 
+    # V1(2)V2(2)E4 -> d6 = <{V1=4, V2=4, E=6}, {graph}>
+    def test_E_greater_than_the_sum_of_V1_V2(self):
+        exceptionWasRaised = False
+        bipartiteGraph = None
+
+        try:
+            bipartiteGraph = bipartite(2, 2, 6)
+        except:
+            exceptionWasRaised = True
+
+        self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
+
+    # V1(3) -> d7 = <{V1=-1, V2=4, E=6}, {ERROR}>
     def test_V1_smaller_than_0(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -98,6 +137,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
 
+    # V2(3) -> d8 = <{V1=4, V2=-1, E=6}, {ERROR}>
     def test_V2_smaller_than_0(self):
         exceptionWasRaised = False
         bipartiteGraph = None
@@ -109,6 +149,7 @@ class TestBipartiteGraph(unittest.TestCase):
 
         self.assertTrue(exceptionWasRaised and bipartiteGraph is None)
 
+    # E2 -> d9 = <{V1=4, V2=4, E=-1}, {ERROR}>
     def test_E_smaller_than_0(self):
         exceptionWasRaised = False
         bipartiteGraph = None
