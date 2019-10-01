@@ -20,6 +20,9 @@ def simple(V, E):
         raise ValueError("Too many edges")
     if E < 0:
         raise ValueError("Too few edges")
+    # Modification question #5
+    if V <= 0:
+        raise ValueError("A simple graph must have at least one vertex")
     G = Graph(V)
     edges = []
     while G.E() < E:
